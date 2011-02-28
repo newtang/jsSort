@@ -1,0 +1,45 @@
+<script>
+	function createRandomArray(num){
+		var randomArr = [];
+		for(var i=0; i<num; ++i){
+			randomArr.push(Math.round(Math.random() * 100));
+		}
+		return randomArr;
+	}	
+	
+	function quickSort(arr){
+		if(arr.length <= 1){
+			return arr;
+		}
+		
+		var pivot = Math.floor(arr.length/2);
+		pivot = arr.splice(pivot, 1);
+		var greater = [];
+		var less = [];
+		
+		var len = arr.length;
+		for(var i=0; i<len; ++i){
+			if(arr[i]<=pivot){
+				less.push(arr[i]);
+			}
+			else{
+				greater.push(arr[i]);
+			}
+		}
+		
+		//	console.log(" less: " + less.length);
+		//console.log(" greater: " + greater.length);
+		return quickSort(less).concat(pivot).concat(quickSort(greater)); 
+		
+		
+		
+	}
+	
+	var randArr = createRandomArray(20);
+	//console.log("length: " + randArr.length);
+	
+	//chrome doesn't show the whole array for some reason.
+	//console.log(randArr);
+	
+	console.log(quickSort(randArr));
+</script>

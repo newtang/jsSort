@@ -1,0 +1,80 @@
+<script>
+	function createRandomArray(num){
+		var randomArr = [];
+		for(var i=0; i<num; ++i){
+			randomArr.push(Math.round(Math.random() * 100));
+		}
+		return randomArr;
+	}	
+	
+	function swapValues(arr, index1, index2){
+		if(index1 !== index2){
+			var value1 = arr[index1];
+			var value2 = arr[index2];
+			arr[index1] = value2;
+			arr[index2] = value1;
+		}
+	}
+	
+	function partition(arr, left, right, pivotIndex){
+		 if(pivotIndex < left){
+			throw "PivotIndex is less than left!";
+		 }
+		 var pivotValue = arr[pivotIndex];
+		 swapValues(arr, right, pivotIndex);
+		 //logArray("pivot: " + pivotValue + " partition", arr);
+		 var storeIndex = left;
+		 for(var i=left; i<right; ++i){ 
+			if(arr[i] <= pivotValue){
+				swapValues(arr, i, storeIndex);
+				storeIndex++;
+			}
+		  }
+		 swapValues(arr, storeIndex, right);
+		 
+		 //logArray("pivot: " + pivotValue + " partition", arr);
+		 return storeIndex;
+	}
+	
+	function quickSort(arr, left, right){
+		if(right > left){
+			//select a pivot index //(e.g. pivotIndex := left + (right - left)/2)
+			//var pivotIndex = left;
+			var pivotIndex = left + Math.floor((right-left)/2);
+			var pivotNewIndex = partition(arr, left, right, pivotIndex);
+			//console.log("pivotNewIndex: " + pivotNewIndex + " left: " + left + " right: " + right);
+			//logArray("afterPartition: ", arr);
+			quickSort(arr, left, pivotNewIndex - 1);
+			quickSort(arr, pivotNewIndex + 1, right);
+		}
+	}
+	
+	function verify(arr){
+	  for(var i=0, len=arr.length-1; i<len; ++i){
+	    if(arr[i] > arr[i + 1]){
+		  console.log("sort fail!");
+		  return;
+		}
+	  }
+	  console.log("correctly sorted!")
+	}
+	
+	function logArray(msg, arr){
+		console.log(msg + ": " + arr.join(", "));
+	}
+	
+	var num = 20;
+	//var randArr = [6, 3, 12, 2, 11];
+	var randArr = createRandomArray(num);
+	logArray("start", randArr);
+	//console.log("length: " + randArr.length);
+	
+	//chrome doesn't show the whole array for some reason.
+	//console.log(randArr);
+	quickSort(randArr, 0, num-1);
+	var sorted = randArr;
+	logArray("done", sorted);
+	verify(sorted);
+	
+	
+</script>
