@@ -27,19 +27,23 @@
 			}
 		}
 		
-		//	console.log(" less: " + less.length);
-		//console.log(" greater: " + greater.length);
 		return quickSort(less).concat(pivot).concat(quickSort(greater)); 
-		
-		
 		
 	}
 	
+	function verify(arr){
+	  for(var i=0, len=arr.length-1; i<len; ++i){
+	    if(arr[i] > arr[i + 1]){	
+		  console.log("sort fail!");
+		  return;
+		}
+	  }
+	  console.log("correctly sorted!")
+	}
+	
 	var randArr = createRandomArray(20);
-	//console.log("length: " + randArr.length);
+	var results = quickSort(randArr)
+	console.log(results);
+	verify(results);
 	
-	//chrome doesn't show the whole array for some reason.
-	//console.log(randArr);
-	
-	console.log(quickSort(randArr));
 </script>

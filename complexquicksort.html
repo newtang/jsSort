@@ -22,7 +22,6 @@
 		 }
 		 var pivotValue = arr[pivotIndex];
 		 swapValues(arr, right, pivotIndex);
-		 //logArray("pivot: " + pivotValue + " partition", arr);
 		 var storeIndex = left;
 		 for(var i=left; i<right; ++i){ 
 			if(arr[i] <= pivotValue){
@@ -31,19 +30,14 @@
 			}
 		  }
 		 swapValues(arr, storeIndex, right);
-		 
-		 //logArray("pivot: " + pivotValue + " partition", arr);
 		 return storeIndex;
 	}
 	
 	function quickSort(arr, left, right){
 		if(right > left){
-			//select a pivot index //(e.g. pivotIndex := left + (right - left)/2)
 			//var pivotIndex = left;
 			var pivotIndex = left + Math.floor((right-left)/2);
 			var pivotNewIndex = partition(arr, left, right, pivotIndex);
-			//console.log("pivotNewIndex: " + pivotNewIndex + " left: " + left + " right: " + right);
-			//logArray("afterPartition: ", arr);
 			quickSort(arr, left, pivotNewIndex - 1);
 			quickSort(arr, pivotNewIndex + 1, right);
 		}
@@ -67,14 +61,9 @@
 	//var randArr = [6, 3, 12, 2, 11];
 	var randArr = createRandomArray(num);
 	logArray("start", randArr);
-	//console.log("length: " + randArr.length);
-	
-	//chrome doesn't show the whole array for some reason.
-	//console.log(randArr);
 	quickSort(randArr, 0, num-1);
-	var sorted = randArr;
-	logArray("done", sorted);
-	verify(sorted);
+	logArray("done", randArr);
+	verify(randArr);
 	
 	
 </script>
