@@ -1,0 +1,79 @@
+<script>
+	function createRandomArray(num){
+		var randomArr = [];
+		for(var i=0; i<num; ++i){
+			randomArr.push(Math.round(Math.random() * 100));
+		}
+		return randomArr;
+	}	
+	function verify(arr){
+	  for(var i=0, len=arr.length-1; i<len; ++i){
+	    if(arr[i] > arr[i + 1]){
+		  console.log("sort fail!");
+		  return;
+		}
+	  }
+	  console.log("correctly sorted!")
+	}
+	function simpleBubbleSort(arr){
+		var swapping = null;
+		do{
+			swapping = false;
+			for(var i=0,len=arr.length; i<len-1; ++i){
+				
+				var next = i+1;
+				
+				if(arr[next] < arr[i]){
+					var iNum = arr[i];
+					arr[i] = arr[next];
+					arr[next] = iNum;
+					swapping = true;
+				}
+				
+			}
+		}while(swapping)
+		
+		return arr;
+	}
+	
+	function optimizedBubbleSort(arr){
+		
+		do{
+			var newN = 0;
+			for(var i=0,len=arr.length; i<len-1; ++i){
+				
+				var next = i+1;
+				
+				if(arr[next] < arr[i]){
+					var iNum = arr[i];
+					arr[i] = arr[next];
+					arr[next] = iNum;
+					newN = next;
+				}
+				
+			}
+		}while(newN > 1)
+		
+		return arr;
+	}
+	
+	function logArray(msg, arr){
+		console.log(msg + ": " + arr.join(", "));
+	}
+	
+	
+	var num = 20;
+	//var randArr = [1,2,3,4,5];
+	var randArr = createRandomArray(num);
+	logArray("start", randArr);
+	var sorted = simpleBubbleSort(randArr);
+	//var sorted = optimizedBubbleSort(randArr);
+	logArray("finished", sorted);
+	verify(sorted);
+	
+	
+	
+	
+	
+	
+</script>
