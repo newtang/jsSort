@@ -1,0 +1,75 @@
+<script>
+	function createRandomArray(num){
+		var randomArr = [];
+		for(var i=0; i<num; ++i){
+			randomArr.push(Math.round(Math.random() * 100));
+		}
+		return randomArr;
+	}	
+	function verify(arr){
+	  for(var i=0, len=arr.length-1; i<len; ++i){
+	    if(arr[i] > arr[i + 1]){
+		  console.log("sort fail!");
+		  return;
+		}
+	  }
+	  console.log("correctly sorted!")
+	}
+	
+	function mergeSort(m){
+		var len = m.length;
+    	if (len <= 1){
+        	return m
+        }
+    	var middle = Math.floor(len / 2),
+    		right = m,
+    		left = right.splice(0, middle),
+    		result = [];
+
+    	result = merge(mergeSort(left), mergeSort(right));
+    	return result
+    }
+		
+	function merge(left, right){
+		var result = [],
+			leftLen = left.length,
+			rightLen = right.length;
+		
+		while(leftLen && rightLen){
+			if(left[0] <= right[0]){
+				result.push(left.shift());
+				--leftLen;
+			}
+			else{
+				result.push(right.shift());
+				--rightLen;
+			}
+		}
+		if(leftLen){
+			result.push.apply(result, left);
+		}
+		else{
+			result.push.apply(result, right);
+		}
+		return result;
+	}
+	
+	function logArray(msg, arr){
+		console.log(msg + ": " + arr.join(", "));
+	}
+	
+	
+	var num = 20;
+	//var randArr = [1,2,3,4,5];
+	var randArr = createRandomArray(num);
+	logArray("start", randArr);
+	var sorted = mergeSort(randArr);
+	logArray("finished", sorted);
+	verify(sorted);
+	
+	
+	
+	
+	
+	
+</script>
